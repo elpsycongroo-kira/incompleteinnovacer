@@ -1,0 +1,12 @@
+<h1> Check your disease</h1>
+<p>Mention your symptoms</p>
+<form action="/symptoms/disease" method="POST">
+    {%csrf_token%}
+    <input type="text" name="symptoms" value="Enter here...">
+    <input type="submit" value="Submit">
+</form>
+{% if symptoms %}
+<p>{{symptoms}}</p>
+{%endif%}
+
+</form>
