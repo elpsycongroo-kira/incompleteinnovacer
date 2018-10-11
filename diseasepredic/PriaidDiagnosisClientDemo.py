@@ -19,7 +19,10 @@ class PriaidDiagnosisClientDemo:
 
 
     def simulate(self,symptom):
-        diagnosis = self._loadDiagnosis(symptom)
+        x=symptom.split(",")
+        x=[a.lower() for a in x]
+        # print(x)
+        return self._loadDiagnosis(x)
 
 
     def _writeHeaderMessage(self, message):
@@ -96,26 +99,27 @@ class PriaidDiagnosisClientDemo:
         selectedSymptomsIds = []
         for symptom in allsymptoms:
             print(symptom["Name"])
-            if symptom["Name"].lower()==selectedSymptoms.lower():
+            if symptom["Name"].lower() in selectedSymptoms:
                 selectedSymptomsIds.append(symptom["ID"])
             
         diagnosis = self._diagnosisClient.loadDiagnosis(selectedSymptomsIds, PriaidDiagnosisClient.Gender.Male, 1988)
-        self._writeRawOutput("loadDiagnosis", diagnosis)
+        # self._writeRawOutput("loadDiagnosis", diagnosis)
         
         if not diagnosis:
             self._writeHeaderMessage("No diagnosis results for symptom {0}".format(selectedSymptoms[0]["Name"]))
 
-        for d in diagnosis:
-            specialisations = []
-            for specialisation in d["Specialisation"]:
-                specialisations.append(specialisation["Name"])
-            print("{0} - {1}% \nICD: {2}{3}\nSpecialisations : {4}\n".format(d["Issue"]["Name"], d["Issue"]["Accuracy"], d["Issue"]["Icd"], d["Issue"]["IcdName"], ",".join(x for x in specialisations)))
+        # for d in diagnosis:
+        #     specialisations = []
+        #     for specialisation in d["Specialisation"]:
+        #         specialisations.append(specialisation["Name"])
+        #     print("{0} - {1}% \nICD: {2}{3}\nSpecialisations : {4}\n".format(d["Issue"]["Name"], d["Issue"]["Accuracy"], d["Issue"]["Icd"], d["Issue"]["IcdName"], ",".join(x for x in specialisations)))
 
-        diagnosisIds = []
+        diagnosisinfo = []
         for diagnose in diagnosis:
-            diagnosisIds.append(diagnose["Issue"]["ID"])
+            diagnosisinfo.append((self._loadIssueInfo(diagnose["Issue"]["ID"])))
+            # diagnosisIds.append(diagnose["Issue"]["ID"])
 
-        return diagnosisIds
+        return diagnosisinfo
 
 
     def _loadSpecialisations(self, selectedSymptoms):
@@ -146,18 +150,18 @@ class PriaidDiagnosisClientDemo:
 
     def _loadIssueInfo(self, issueId):
         issueInfo = self._diagnosisClient.loadIssueInfo(issueId)
-        self._writeRawOutput("issueInfo", issueInfo)
-        
-        self._writeHeaderMessage("Issue info")
-        print("Name: {0}".format(issueInfo["Name"]).encode("utf-8"))
-        print("Professional Name: {0}".format(issueInfo["ProfName"]).encode("utf-8"))
-        print("Synonyms: {0}".format(issueInfo["Synonyms"]).encode("utf-8"))
-        print("Short Description: {0}".format(issueInfo["DescriptionShort"]).encode("utf-8"))
-        print("Description: {0}".format(issueInfo["Description"]).encode("utf-8"))
-        print("Medical Condition: {0}".format(issueInfo["MedicalCondition"]).encode("utf-8"))
-        print("Treatment Description: {0}".format(issueInfo["TreatmentDescription"]).encode("utf-8"))
-        print("Possible symptoms: {0} \n\n".format(issueInfo["PossibleSymptoms"]).encode("utf-8"))
-
+        # self._writeRawOutput("issueInfo", issueInfo)
+        #
+        # self._writeHeaderMessage("Issue info")
+        # print("Name: {0}".format(issueInfo["Name"]).encode("utf-8"))
+        # print("Professional Name: {0}".format(issueInfo["ProfName"]).encode("utf-8"))
+        # print("Synonyms: {0}".format(issueInfo["Synonyms"]).encode("utf-8"))
+        # print("Short Description: {0}".format(issueInfo["DescriptionShort"]).encode("utf-8"))
+        # print("Description: {0}".format(issueInfo["Description"]).encode("utf-8"))
+        # print("Medical Condition: {0}".format(issueInfo["MedicalCondition"]).encode("utf-8"))
+        # print("Treatment Description: {0}".format(issueInfo["TreatmentDescription"]).encode("utf-8"))
+        # print("Possible symptoms: {0} \n\n".format(issueInfo["PossibleSymptoms"]).encode("utf-8"))
+        return issueInfo
 
     def _loadProposedSymptoms(self, selectedSymptoms):
         selectedSymptomsIds = []

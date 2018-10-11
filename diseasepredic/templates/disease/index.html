@@ -5,8 +5,12 @@
     <input type="text" name="symptoms" value="Enter here...">
     <input type="submit" value="Submit">
 </form>
-{% if symptoms %}
-<p>{{symptoms}}</p>
+{% if diagnosis %}
+    {% for d in diagnosis %}
+        <h1>{{ d.disease_name }}</h1>
+        <p>{{ d.disease_description}}</p>
+        <p>{{ d.disease_treatment }}</p>
+    {% endfor %}
 {%endif%}
 
 </form>
