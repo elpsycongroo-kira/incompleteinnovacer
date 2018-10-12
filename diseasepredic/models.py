@@ -11,8 +11,9 @@ class Diseases(models.Model):
     disease_treatment = models.CharField(max_length=1200)
     def __str__(self):
         return self.disease_name
-class combination:
-    symptomid=models.ForeignKey(Symptoms,on_delete=models.CASCADE)
-    diseaseid=models.ForeignKey(Diseases,on_delete=models.CASCADE)
+class combination(models.Model):
+    symptomid= models.ForeignKey(Symptoms,on_delete=models.CASCADE)
+    diseaseid= models.ForeignKey(Diseases,on_delete=models.CASCADE)
+    name = models.CharField(max_length=250)
     def __str__(self):
-        return self.symptomid+" "+self.diseaseid
+        return self.name

@@ -19,10 +19,10 @@ class PriaidDiagnosisClientDemo:
 
 
     def simulate(self,symptom):
-        x=symptom.split(",")
-        x=[a.lower() for a in x]
-        # print(x)
-        return self._loadDiagnosis(x)
+        # x=symptom.split(",")
+        # x=[a.lower() for a in x]
+        # # print(x)
+        return self._loadDiagnosis(symptom.lower())
 
 
     def _writeHeaderMessage(self, message):
@@ -98,7 +98,6 @@ class PriaidDiagnosisClientDemo:
         allsymptoms=self._diagnosisClient.loadSymptoms()
         selectedSymptomsIds = []
         for symptom in allsymptoms:
-            print(symptom["Name"])
             if symptom["Name"].lower() in selectedSymptoms:
                 selectedSymptomsIds.append(symptom["ID"])
             

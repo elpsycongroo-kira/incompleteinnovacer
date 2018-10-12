@@ -2,15 +2,18 @@
 <p>Mention your symptoms</p>
 <form action="/symptoms/disease" method="POST">
     {%csrf_token%}
-    <input type="text" name="symptoms" value="Enter here...">
+    <input type="text" name="symptoms" placeholder="Enter here...">
     <input type="submit" value="Submit">
 </form>
 {% if diagnosis %}
     {% for d in diagnosis %}
         <h1>{{ d.disease_name }}</h1>
+        <h2>Disease description</h2>
         <p>{{ d.disease_description}}</p>
+        <h2>Disease treatment</h2>
         <p>{{ d.disease_treatment }}</p>
     {% endfor %}
-{%endif%}
-
+{% else %}
+    <p>Please enter your symptoms</p>
+{% endif %}
 </form>
