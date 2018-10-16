@@ -24,4 +24,4 @@ I have taken input symptoms from the user and got the diseases data from apimedi
 
 ### TODOS in future
 - To suggest me the nearest doctors whom I can visit given my location to them.
-- The text-box takes a text like “I’m having a back pain”, and extracts symptoms and based on those symptoms returns the medical conditions.
+- The text-box takes a text like “I’m having a back pain”, and extracts symptoms and based on those symptoms returns the medical conditions.(I could do this by using information retrieval and extraction techniques,it takes some time first to create index file from apimedic data)
