@@ -5,9 +5,17 @@ from .models import Diseases,Symptoms,combination
 
 # from django.http import HttpResponse
 def index(request):
+    """ This function returns the rendered symptoms page of the website. """
     return render(request, 'disease/index.html', {})
 # Create your views here.
 def disease(request):
+    """ This function returns the rendered diseases page of the website.
+
+        The formdata contains the symptoms entered by the user, after splitting the symptoms,we loop through the symptoms, if
+        it is not there in the database we go through the api checking the diseases for the symptom and enter them in database,
+        if the symptom is already there in database we get it's corresponding saved diseases from combination table. Then we
+        take the common diseases of all the lists of symptoms.
+    """
     formdata=request.POST['symptoms']
     formdata=formdata.split(",")
     # print(formdata)
